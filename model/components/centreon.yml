@@ -1,0 +1,79 @@
+---
+components:
+
+  # Centreon server
+  - id: centreon-server
+    name: Centreon Server
+    description: Centreon monitors the complete IT Infrastructure for a clear and comprehensive view.
+    link: https://centreon.com/en/editions/
+    github:
+      - centreon/centreon
+    twitter: centreon
+    logo: centreon
+    license:
+      - GPLv2
+    categories:
+      - collector
+      - alerting
+      - visualization
+      - dashboarding
+    capabilities:
+      aspects:
+        - metrics [host]
+        - metrics [app]
+        - metrics [process]
+    connections:
+      dataFrom:
+        - centreon-gorgone
+        - centreon-dsm
+      dataTo:
+        - centreon-gorgone
+        - elasticsearch
+        - graphite
+        - influx-db
+
+  # Centreon gorgone daemon
+  - id: centreon-gorgone
+    name: Centreon Gorgone
+    description: Centreon Gorgone is a lightweight, distributed, modular tasks handler. It handles most communications between centreon servers and uses internal plugins to gather data from other tools like IP-Label Newtest.
+    github:
+      - centreon/centreon-gorgone
+    twitter: centreon
+    logo: centreon
+    license:
+      - Apache License 2.0
+    categories:
+      - collector
+      - transport
+    capabilities:
+      aspects:
+        - metrics [host]
+        - metrics [app]
+        - metrics [process]
+    connections:
+      dataFrom:
+        - centreon-server
+      dataTo:
+        - centreon-server
+        - centreon-dsm
+
+  # Centreon DSM
+  - id: centreon-dsm
+    name: Centreon DSM
+    description: Centreon DSM handles events by sending them in an event log. It dynamically assigns a Centreon service depending on the nature of the event.
+    github:
+      - centreon/centreon-dsm
+    twitter: centreon
+    logo: centreon
+    license:
+      - GPLv2
+    categories:
+      - collector
+    capabilities:
+      aspects:
+      - metrics [host]
+      - metrics [app]
+      - metrics [process]
+    connections:
+      dataTo:
+        - centreon-server
